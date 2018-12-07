@@ -218,6 +218,14 @@ head(dt.data_sentiment)
 
 If all of the above steps worked, you are set to start with the workshop and practical.
 
+
+ggplot(data = dt.data_liwc) +
+  aes(x = WC, y = view_count) +
+  geom_point(color = "#0c4c8a") +
+  labs(title = "View Count & word count relationship") +
+  theme_base() +
+  facet_wrap(vars(channel_id))
+
 -------------------
   
   

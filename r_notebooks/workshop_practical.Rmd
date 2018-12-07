@@ -120,11 +120,11 @@ plot(sentiment_airplane_video$`120`
      , main = 'THE $21,000 FIRST CLASS AIRPLANE SEAT'
      , ylab = 'Sentiment scaled'
      , xlab = 'Standardized narrative time'
-     , col = ifelse(a$`120` > 0, 'blue', 'red'))
+     , col = ifelse(sentiment_airplane_video$`120` > 0, 'blue', 'red'))
 
 ```
 
-An important consideration is the scaling of sentiments. See what happens if we use the same data s input but do not scale the sentimemt values.
+An important consideration is the scaling of sentiments. See what happens if we use the same data s input but do not scale the sentiment values.
 
 ```{r}
 sentiment_airplane_video_unscaled = ncs_full(txt_input_col = df.sub$text[2]
@@ -140,13 +140,13 @@ sentiment_airplane_video_unscaled = ncs_full(txt_input_col = df.sub$text[2]
 ```{r}
 #This will plot the unscaled sentiment
 
-plot(sentiment_airplane_video$`120`
+plot(sentiment_airplane_video_unscaled$`120`
      , type='h'
      , ylim = c(0, .4)
      , main = 'THE $21,000 FIRST CLASS AIRPLANE SEAT'
      , ylab = 'Sentiment raw'
      , xlab = 'Standardized narrative time'
-     , col = ifelse(a$`120` > 0, 'blue', 'red'))
+     , col = ifelse(sentiment_airplane_video_unscaled$`120` > 0, 'blue', 'red'))
 
 ```
 
@@ -156,6 +156,10 @@ plot(sentiment_airplane_video$`120`
 
 ```{r}
 #type and run your code here
+df.sub2 = df.txt[grepl('airplane seat', df.txt$text) == T,]
+#this results in a new data.frame of transcrips that contain the sub-string 'airplane seat'
+nrow(df.sub2)
+
 ```
 
 
@@ -163,13 +167,26 @@ plot(sentiment_airplane_video$`120`
 
 ```{r}
 #adjust the parameters
-sentiment_airplane_video = ncs_full(txt_input_col = df.sub$text[2]
+sentiment_airplane_video = ncs_full(txt_input_col = df.sub$text[2] # Spalte text, zeile 2
                                     , txt_id_col = df.sub$id[2]
-                                    , low_pass_filter_size = 0 #!
-                                    , cluster_lower = 0 #!
-                                    , cluster_upper = 0 #!
+                                    , low_pass_filter_size = 8 #!
+                                    , cluster_lower = 10 # Worte vor dem Sentiment-Match
+                                    , cluster_upper = 10 # Worte nach dem Sentiment-Match
                                     , transform_values = T
-                                    , normalize_values = F)
+                                    , normalize_values = F
+                                    , min_tokens = 15)
+
+# Plot the visuals
+
+plot(sentiment_airplane_video$`120`
+     , type='h'
+     , ylim = c(-1.25, 1.25)
+     , main = 'THE $21,000 FIRST CLASS AIRPLANE SEAT'
+     , ylab = 'Sentiment scaled'
+     , xlab = 'Standardized narrative time'
+     , col = ifelse(sentiment_airplane_video$`120` > 0, 'blue', 'red'))
+
+
 
 ```
 
@@ -178,6 +195,26 @@ sentiment_airplane_video = ncs_full(txt_input_col = df.sub$text[2]
 
 ```{r}
 #type and run your code here
+sentiment_airplane_video3 = ncs_full(txt_input_col = df.sub$text[2] # Spalte text, zeile 2
+                                    , txt_id_col = df.sub$id[2]
+                                    , low_pass_filter_size = 8 #!
+                                    , cluster_lower = 15 # Worte vor dem Sentiment-Match
+                                    , cluster_upper = 15 # Worte nach dem Sentiment-Match
+                                    , transform_values = F
+                                    , normalize_values = T
+                                    , min_tokens = 15)
+
+# Plot the visuals
+
+plot(sentiment_airplane_video3$`120`
+     , type='h'
+     , ylim = c(-1.25, 1.25)
+     , main = 'THE $21,000 FIRST CLASS AIRPLANE SEAT'
+     , ylab = 'Sentiment scaled'
+     , xlab = 'Standardized narrative time'
+     , col = ifelse(sentiment_airplane_video3$`120` > 0, 'blue', 'red'))
+
+
 ```
 
 
@@ -185,6 +222,28 @@ sentiment_airplane_video = ncs_full(txt_input_col = df.sub$text[2]
 
 ```{r}
 #type and run your code here
+#type and run your code here
+sentiment_airplane_video4 = ncs_full(txt_input_col = df.sub$text[2] # Spalte text, zeile 2
+                                    , txt_id_col = df.sub$id[2]
+                                    , low_pass_filter_size = 8 #!
+                                    , cluster_lower = 15 # Worte vor dem Sentiment-Match
+                                    , cluster_upper = 15 # Worte nach dem Sentiment-Match
+                                    , transform_values = T
+                                    , normalize_values = F
+                                    , min_tokens = 15
+                                    , bins = 300)
+
+# Plot the visuals
+
+plot(sentiment_airplane_video4$`120`
+     , type='h'
+     , ylim = c(-1.25, 1.25)
+     , main = 'THE $21,000 FIRST CLASS AIRPLANE SEAT'
+     , ylab = 'Sentiment scaled'
+     , xlab = 'Standardized narrative time'
+     , col = ifelse(sentiment_airplane_video4$`120` > 0, 'blue', 'red'))
+
+
 ```
 
 

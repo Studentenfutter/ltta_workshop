@@ -1,0 +1,13 @@
+---
+title: "Notizen_LTTA-Workshop"
+author: "Florian Gilberg"
+date: "5 Dezember 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+ Adverben als "balance shifters" - klare Aussage und Ansatzpunkt für Sentimentanalyse. 
